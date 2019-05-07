@@ -83,14 +83,55 @@ function todaySlackClick() {
         day[6] = '06';
         day[7] = '07';
         day[8] = '08';
-        day[9] = '09';   
+        day[9] = '09';
+    let hour = new Array();
+        hour[1] = '01';
+        hour[2] = '02';
+        hour[3] = '03';
+        hour[4] = '04';
+        hour[5] = '05';
+        hour[6] = '06';
+        hour[7] = '07';
+        hour[8] = '08';
+        hour[9] = '09';
+        hour[10] = '10';
+        hour[11] = '11';
+        hour[12] = '12';
+        hour[13] = '13';
+        hour[14] = '14';
+        hour[15] = '15';
+        hour[16] = '16';
+        hour[17] = '17';
+        hour[18] = '18';
+        hour[19] = '19';
+        hour[20] = '20';
+        hour[21] = '21';
+        hour[22] = '22';
+        hour[23] = '23';          
     const date = today.getFullYear()+''+month[today.getMonth()]+''+day[today.getDate()];
+    const time = hour[today.getHours()] + ":" + today.getMinutes();
     $('.container').on('click', '.currentDaySlack', function(event) {
-        fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date}&range=24&station=9447130&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
+        fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=9447130&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
         .then(response => response.json())
-        .then(responseJson => console.log(responseJson));
+        .then(responseJson => displayTodaysTides(responseJson));
     });
+    console.log(date, time);
 }
+
+function displayTodaysTides(responseJson) {
+    console.log(responseJson);
+    $('form').remove();
+    $('.returnCity').html(`<button type="submit" class="backToCitiesButton">Choose a different city</button>`);
+    $('.container').append(`
+        <div class="tideResponse">
+            <ul>
+                <li><p>Next slack tide is at: ${responseJson.predictions[0].t}</p></li>
+                <li><p>The tide is: ${responseJson.predictions[0].type}</p></li>
+                <li><p>Water level: ${responseJson.predictions[0].v}ft</p></li>
+            </ul>
+        </div>  
+        `);
+    };
 
 function displayTides(responseJson) {
     console.log(responseJson);
