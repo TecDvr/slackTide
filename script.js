@@ -1,5 +1,12 @@
 'use strict';
 
+function getTime() {
+    const today = new Date();
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const time = today.getHours() + ":" + today.getMinutes();
+    console.log(date, time);
+}
+
 function getTides(diveDate) {
     fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${diveDate}&range=24&station=9447130&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
     .then(response => response.json())
@@ -30,22 +37,24 @@ function listenForClick() {
 function displayTides(responseJson) {
     console.log(responseJson);
     $('form').remove();
+    $('.time').html(`<p>Time</p>`)
     responseJson.predictions.forEach(function(item, i) {
         $('.container').append(`
-              <div>
+            <div class="tideResponse">
                 <ul>
                   <li>${responseJson.predictions[i].type}</li>
                   <li>${responseJson.predictions[i].v}</li>
                   <li>${responseJson.predictions[i].t}</li>
                 </ul>
-              </div>  
-              `);
-        }); 
+            </div>  
+        `);
+    }); 
 }
 
 function runThisPuppy() {
     listenForClick();
     displayDiveDateSubmit();
+    getTime();
 };
 
 $(runThisPuppy);
