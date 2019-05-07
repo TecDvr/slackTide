@@ -1,26 +1,11 @@
-form {
-    height: 40px;
-    width: 100%;
-    background-color: lightgray;
-}
-
 .city {
     background-color: lightgray;
     margin: 10px;
 }
 
-#submitButton {
-    background-color: white;
-}
-
-.backToCitiesButton {
+Button {
     background-color: grey;
     color: white;
-    border-radius: 10px;
-}
-
-.currentDaySlack {
-    background-color: grey;
-    color: white;
+    height: 40px;
     border-radius: 10px;
 }
