@@ -37,8 +37,9 @@ function getTides(diveDate) {
 
 function captureCitySelect() {
     $('.city').on('click', function(event) {
-        let citySelection = $(event.currentTarget);
+        const citySelection = $(this).attr('class').split(' ')[2];
         console.log(citySelection);
+        
     });
 }
 
@@ -107,7 +108,7 @@ function todaySlackClick() {
         hour[20] = '20';
         hour[21] = '21';
         hour[22] = '22';
-        hour[23] = '23';          
+        hour[23] = '23';        
     const date = today.getFullYear()+''+month[today.getMonth()]+''+day[today.getDate()];
     const time = hour[today.getHours()] + ":" + today.getMinutes();
     $('.container').on('click', '.currentDaySlack', function(event) {
