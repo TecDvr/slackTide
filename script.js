@@ -15,6 +15,13 @@ function getTides(diveDate) {
       alert('You lost the internet, lets find it!')});
 }
 
+function captureCitySelect() {
+    $('.city').on('click', function(event) {
+        let citySelection = $(event.currentTarget);
+        console.log(citySelection);
+    });
+}
+
 function displayDiveDateSubmit(diveDate) {
     $('.container').on('click', '.seattle', function(event) {
         $('.container').html(`
@@ -55,6 +62,7 @@ function runThisPuppy() {
     listenForClick();
     displayDiveDateSubmit();
     getTime();
+    captureCitySelect();
 };
 
 $(runThisPuppy);
