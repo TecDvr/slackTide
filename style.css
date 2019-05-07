@@ -12,3 +12,15 @@ form {
 #submitButton {
     background-color: white;
 }
+
+.backToCitiesButton {
+    background-color: grey;
+    color: white;
+    border-radius: 10px;
+}
+
+.currentDaySlack {
+    background-color: grey;
+    color: white;
+    border-radius: 10px;
+}
