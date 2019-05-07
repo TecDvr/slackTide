@@ -1,0 +1,14 @@
+form {
+    height: 40px;
+    width: 100%;
+    background-color: lightgray;
+}
+
+.city {
+    background-color: lightgray;
+    margin: 10px;
+}
+
+#submitButton {
+    background-color: white;
+}
