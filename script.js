@@ -141,14 +141,28 @@
         fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
         .then(response => response.json())
         .then(responseJson => displayTodaysTides(responseJson, citySelectionName, time));
+        getWeather();
     
     });
+}
+
+function getWeather() {
+    fetch(`https://api.openweathermap.org/data/2.5/find?q=seattle&units=imperial&appid=f45c5dca7b6df9490219f032a35434a1`)
+    .then(response => response.json())
+    .then(responseJson => displayWeather(responseJson));
+}
+
+function displayWeather(responseJson) {
+    console.log(responseJson);
 }
   
 function displayTodaysTides(responseJson, citySelectionName, time) {
     console.log(responseJson);
     $('.container').html(`
         <h3>${citySelectionName}</h3>
+        <div class="weather">
+            <p>weather display<br>temp - wind - cloud%</p>
+        </div>
         <div class="tideResponse">
             <ul>
                 <li><p>The current time is: ${time}</p></li>
