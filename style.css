@@ -8,4 +8,9 @@ Button {
     color: white;
     height: 40px;
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.cities {
+    cursor: pointer;
 }

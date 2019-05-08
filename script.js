@@ -22,6 +22,28 @@
         day[7] = '07';
         day[8] = '08';
         day[9] = '09';
+        day[10] = '10';
+        day[11] = '11';
+        day[12] = '12';
+        day[13] = '13';
+        day[14] = '14';
+        day[15] = '15';
+        day[16] = '16';
+        day[17] = '17';
+        day[18] = '18';
+        day[19] = '19';
+        day[20] = '20';
+        day[21] = '21';
+        day[22] = '22';
+        day[23] = '23';
+        day[24] = '24';
+        day[25] = '25';
+        day[26] = '26';
+        day[27] = '27';
+        day[28] = '28';
+        day[29] = '29';
+        day[30] = '30';
+        day[31] = '31';
     let hour = new Array();
         hour[1] = '01';
         hour[2] = '02';
@@ -45,9 +67,71 @@
         hour[20] = '20';
         hour[21] = '21';
         hour[22] = '22';
-        hour[23] = '23';        
+        hour[23] = '23';
+    let minute = new Array();  
+        minute[1] = '01';
+        minute[2] = '02';
+        minute[3] = '03';
+        minute[4] = '04';
+        minute[5] = '05';
+        minute[6] = '06';
+        minute[7] = '07';
+        minute[8] = '08';
+        minute[9] = '09';
+        minute[10] = '10';
+        minute[11] = '11';
+        minute[12] = '12';
+        minute[13] = '13';
+        minute[14] = '14';
+        minute[15] = '15';
+        minute[16] = '16';
+        minute[17] = '17';
+        minute[18] = '18';
+        minute[19] = '19';
+        minute[20] = '20';
+        minute[21] = '21';
+        minute[22] = '22';
+        minute[23] = '23'; 
+        minute[24] = '24';
+        minute[25] = '25';
+        minute[26] = '26';
+        minute[27] = '27';
+        minute[28] = '28';
+        minute[29] = '29';
+        minute[30] = '30';
+        minute[31] = '31';
+        minute[32] = '32';
+        minute[33] = '33';
+        minute[34] = '34';
+        minute[35] = '35';
+        minute[36] = '36';
+        minute[37] = '37';
+        minute[38] = '38';
+        minute[39] = '39';
+        minute[40] = '40';
+        minute[41] = '41';
+        minute[42] = '42';
+        minute[43] = '43';
+        minute[44] = '44';
+        minute[45] = '45';
+        minute[46] = '46';
+        minute[47] = '47';
+        minute[48] = '48';
+        minute[49] = '49';
+        minute[50] = '50';
+        minute[51] = '51';
+        minute[52] = '52';
+        minute[53] = '53';
+        minute[54] = '54';
+        minute[55] = '55';
+        minute[56] = '56';
+        minute[57] = '57';
+        minute[58] = '58';
+        minute[59] = '59';
+        minute[60] = '60';
+          
     const date = today.getFullYear()+''+month[today.getMonth()]+''+day[today.getDate()];
-    const time = hour[today.getHours()] + ":" + today.getMinutes();
+    const time = hour[today.getHours()] + ":" + minute[today.getMinutes()];
     
     $('body').on('click', '.city', function(event) {
         const citySelection = $(this).attr('class').split(' ')[2];
@@ -56,6 +140,7 @@
         .then(response => response.json())
         .then(responseJson => displayTodaysTides(responseJson));
     });
+    console.log(date, time);
 }
   
 function displayTodaysTides(responseJson) {
@@ -63,7 +148,7 @@ function displayTodaysTides(responseJson) {
     $('.container').html(`
         <div class="tideResponse">
             <ul>
-                <li><p>Next slack tide is at: ${responseJson.predictions[0].t}</p></li>
+                <li><p>Next slack tide is at: ${responseJson.predictions[0].t.split(' ')[1]}</p></li>
                 <li><p>The tide is: ${responseJson.predictions[0].type}</p></li>
                 <li><p>Water level: ${responseJson.predictions[0].v}ft</p></li>
             </ul>
@@ -91,6 +176,7 @@ function backToCitiesButton() {
 function displayCities() {
     $('.startButton').on('click', function(event) {
         $('.container').html(`
+            <h2>Where are you diving?</h2>
             <div class="cities">
                 <div class="city seattle 9447130">Seattle</div>
                 <div class="city tacoma 9446484">Tacoma</div>
