@@ -2,7 +2,7 @@
 
   function todaySlackClick() {
     const today = new Date();
-    let month = new Array();
+    let month = new Array(); //there has to be a better way to do this
         month[0] = '01';
         month[1] = '02';
         month[2] = '03';
@@ -129,25 +129,29 @@
         minute[58] = '58';
         minute[59] = '59';
         minute[60] = '60';
-          
     const date = today.getFullYear()+''+month[today.getMonth()]+''+day[today.getDate()];
     const time = hour[today.getHours()] + ":" + minute[today.getMinutes()];
     
     $('body').on('click', '.city', function(event) {
+        event.preventDefault();
+
         const citySelection = $(this).attr('class').split(' ')[2];
-        
+        const citySelectionName = $(this).attr('class').split(' ')[1];
+
         fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
         .then(response => response.json())
-        .then(responseJson => displayTodaysTides(responseJson));
+        .then(responseJson => displayTodaysTides(responseJson, citySelectionName, time));
+    
     });
-    console.log(date, time);
 }
   
-function displayTodaysTides(responseJson) {
+function displayTodaysTides(responseJson, citySelectionName, time) {
     console.log(responseJson);
     $('.container').html(`
+        <h3>${citySelectionName}</h3>
         <div class="tideResponse">
             <ul>
+                <li><p>The current time is: ${time}</p></li>
                 <li><p>Next slack tide is at: ${responseJson.predictions[0].t.split(' ')[1]}</p></li>
                 <li><p>The tide is: ${responseJson.predictions[0].type}</p></li>
                 <li><p>Water level: ${responseJson.predictions[0].v}ft</p></li>
