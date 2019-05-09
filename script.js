@@ -156,11 +156,11 @@ function getWeather() {
 function displayWeather(responseJson) {
     console.log(responseJson);
     $('.weather').html(`
-        <p>TEST</p>
+        <h3>${responseJson.list[0].name}</h3>
+        <p>${responseJson.list[0].main.temp}</p>
+        <p>${responseJson.list[0].wind.speed}</p>
+        <p>${responseJson.list[0].weather[0].description}</p>
     `);
-    console.log(responseJson.list[0].main.temp);
-    console.log(responseJson.list[0].wind.speed);
-    console.log(responseJson.list[0].weather[0].description);
 }
   
 function displayTodaysTides(responseJson, citySelectionName, time) {
