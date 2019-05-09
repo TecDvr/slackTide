@@ -2,7 +2,7 @@
 
   function todaySlackClick() {
     const today = new Date();
-    let month = new Array(); //there has to be a better way to do this
+    let month = new Array();
         month[0] = '01';
         month[1] = '02';
         month[2] = '03';
@@ -142,6 +142,7 @@
         .then(response => response.json())
         .then(responseJson => displayTodaysTides(responseJson, citySelectionName, time));
         getWeather();
+        $('.weather').removeClass('hidden');
     
     });
 }
@@ -154,15 +155,18 @@ function getWeather() {
 
 function displayWeather(responseJson) {
     console.log(responseJson);
+    $('.weather').html(`
+        <p>TEST</p>
+    `);
+    console.log(responseJson.list[0].main.temp);
+    console.log(responseJson.list[0].wind.speed);
+    console.log(responseJson.list[0].weather[0].description);
 }
   
 function displayTodaysTides(responseJson, citySelectionName, time) {
     console.log(responseJson);
     $('.container').html(`
         <h3>${citySelectionName}</h3>
-        <div class="weather">
-            <p>weather display<br>temp - wind - cloud%</p>
-        </div>
         <div class="tideResponse">
             <ul>
                 <li><p>The current time is: ${time}</p></li>
@@ -188,6 +192,7 @@ function backToCitiesButton() {
                 <div class="city neahBay 9443090">Neah Bay</div>
             </div>
         `);
+        $('.weather').addClass('hidden');
     });
 }    
 

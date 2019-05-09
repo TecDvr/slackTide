@@ -18,3 +18,7 @@ Button {
 .cities {
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
