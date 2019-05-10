@@ -136,19 +136,20 @@
         event.preventDefault();
 
         const citySelection = $(this).attr('class').split(' ')[2];
-        const citySelectionName = $(this).attr('class').split(' ')[1];
+        //const citySelectionName = $(this).attr('class').split(' ')[1];
+        const citySelectionName = $(this).attr('id');
 
         fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
         .then(response => response.json())
         .then(responseJson => displayTodaysTides(responseJson, citySelectionName, time));
-        getWeather();
+        getWeather(citySelectionName);
         $('.weather').removeClass('hidden');
     
     });
 }
 
-function getWeather() {
-    fetch(`https://api.openweathermap.org/data/2.5/find?q=seattle&units=imperial&appid=f45c5dca7b6df9490219f032a35434a1`)
+function getWeather(citySelectionName) {
+    fetch(`https://api.openweathermap.org/data/2.5/find?q=${citySelectionName}&units=imperial&appid=f45c5dca7b6df9490219f032a35434a1`)
     .then(response => response.json())
     .then(responseJson => displayWeather(responseJson));
 }
@@ -166,7 +167,6 @@ function displayWeather(responseJson) {
 function displayTodaysTides(responseJson, citySelectionName, time) {
     console.log(responseJson);
     $('.container').html(`
-        <h3>${citySelectionName}</h3>
         <div class="tideResponse">
             <ul>
                 <li><p>The current time is: ${time}</p></li>
@@ -186,10 +186,10 @@ function backToCitiesButton() {
     $('.container').on('click', '.citySelectButton', function(event) {
         $('.container').html(`
             <div class="cities">
-                <div class="city seattle 9447130">Seattle</div>
-                <div class="city tacoma 9446484">Tacoma</div>
-                <div class="city portTownsend 9444900">Port Townsend</div>
-                <div class="city neahBay 9443090">Neah Bay</div>
+                <div class="city seattle 9447130" id="seattle">Seattle</div>
+                <div class="city tacoma 9446484" id="tacoma">Tacoma</div>
+                <div class="city porttownsend 9444900" id="port townsend">Port Townsend</div>
+                <div class="city neahbay 9443090" id="forks">Neah Bay (Forks)</div>
             </div>
         `);
         $('.weather').addClass('hidden');
@@ -201,10 +201,10 @@ function displayCities() {
         $('.container').html(`
             <h2>Where are you diving?</h2>
             <div class="cities">
-                <div class="city seattle 9447130">Seattle</div>
-                <div class="city tacoma 9446484">Tacoma</div>
-                <div class="city portTownsend 9444900">Port Townsend</div>
-                <div class="city neahBay 9443090">Neah Bay</div>
+                <div class="city seattle 9447130" id="seattle">Seattle</div>
+                <div class="city tacoma 9446484" id="tacoma">Tacoma</div>
+                <div class="city porttownsend 9444900" id="port townsend">Port Townsend</div>
+                <div class="city neahbay 9443090" id="forks">Neah Bay (Forks)</div>
             </div>
         `);
     });
