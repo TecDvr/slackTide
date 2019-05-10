@@ -15,6 +15,17 @@ Button {
     cursor: pointer;
 }
 
+form {
+    background-color: grey;
+    height: 40px;
+    padding: 10px;
+}
+
+#submitButton {
+    border: 1px solid white;
+    cursor: pointer;
+}
+
 .cities {
     cursor: pointer;
 }
