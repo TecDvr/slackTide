@@ -2,6 +2,41 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+}
+
+h1 {
+    margin: 0px;
+}
+
+header {
+    padding-top: 40%;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://lh3.googleusercontent.com/0agcwXcskUN_x0xeSmGcjKr1sjG-aDV3QfImGrALsgwLBU-SH3cdggA-eCsrieNH7JF5VI1ci2cOjSBmmrQ5yBCmqOg2htUR3xsrm9AQZ2WRkn8cOl51UhP7m_Vjxxz2XZpRmfl56sCdlWO2C76rda2k_TF45ydx_Kh7IBbnQ0OTtTDf2WyUWRzjoriwMjQV4CsP8ueoFbbiupAi064-Tcj5-mYOoDIYvM2nWs8KA42ryL8EmT4Vwx9FO9p6sT-jM86m96dZrp8GlZjQTyiRgtHJYQBiQvoZ0mYXu0meFlSBAuMJYIoZETr5b67imQ4MnpF9XcNtpIpiLwyDW6GDCgVJP0BalW4PgVZGxZmxlwDyVufPSwL0Sjf98d-QiPdfGQRFx9z6j2_YdqRjeOBuuzri5wWuEhJSwBByAvgw-LMB3iIrRpJ_Dp4XKK428osXp_fSI5kTyV7ro6rUSKWkhizELhgGrNXDh-t5ycMAwOlQyApBfDci4HW1M9SfsmAJVwsPTJR6ll1EB9Pg7K--gIl0d6FrFu9Hh1ogUAk40_TXUFnolro9cjOnVdJLq6ft5BMg5LktvDnXLwqMS4qs7kVqWvrB4OB4D2bAgSuA3pisxcnzVtRXfwWUX5QPMtmw4r0Ocz38J-Apkgz3RT9fkb4Zb3Cb-rrTYlvndKtdH1lD4na5K7lI9AHrcphgzsldRlfJLHRyq-Pghv7kHN82MsUd=w1047-h698-no');
+    background-color:#47EAFF;
+    background-size: cover;
+    color: white;
+}
+
+.logoHero {
+    height: 200px;
+}
+
+.heroTagLine {
+    font-family: 'Megrim', cursive;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .city {
     background-color: lightgray;
     margin: 10px;
@@ -11,6 +46,7 @@ Button {
     background-color: grey;
     color: white;
     height: 40px;
+    width: 100px;
     border-radius: 10px;
     cursor: pointer;
 }

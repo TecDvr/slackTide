@@ -80,23 +80,42 @@ function selectTideDate() {
                 <input type="text" name="dateInput" id="dateInput" placeholder="ex. YYYYMMDD" required>
                 <input type="button" id="submitDateButton" value="go dive">
             </form>
+            <div class="userDateTideContainer"></div>
+            <button class="citySelectButton">Choose a different city</button>
         `);
+        userDateSubmit();
     });
 }
 
 function userDateSubmit() {
     $('.container').on('click', '#submitDateButton', function(event) {
         let userDate = $('#dateInput').val();
-        displayUserDateTide();
+        getDateSpecificTide(userDate);
     });
 }
 
-function displayUserDateTide() {
+function getDateSpecificTide(userDate) {
+    fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${userDate}&range=24&station=9447130&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
+    .then(response => response.json())
+    .then(responseJson => displayUserDateTide(responseJson));
+}
 
+function displayUserDateTide(responseJson) {
+    console.log(responseJson);
+    $('.userDateTideContainer').empty();
+    responseJson.predictions.forEach(function(item, i) {
+        $('.userDateTideContainer').append(`
+            <div>
+                <ul>
+                  <li>${responseJson.predictions[i].type}</li>
+                  <li>${responseJson.predictions[i].t}</li>
+                </ul>
+            </div>  
+        `);
+    }); 
 }
 
 function displayCities() {
-    $('.startButton').on('click', function(event) {
         $('.container').html(`
             <h2>Where are you diving?</h2>
             <div class="cities">
@@ -105,13 +124,16 @@ function displayCities() {
                 <div class="city porttownsend 9444900" id="port townsend">Port Townsend</div>
                 <div class="city neahbay 9443090" id="forks">Neah Bay (Forks)</div>
             </div>
-        `);
-    });
+        `).hide().fadeIn(1000);
+}
+
+function loadDelayCities() {
+    setTimeout(displayCities, 2500);
 }
 
 function runThisPuppy() {
     todaySlackClick();
-    displayCities();
+    //loadDelayCities();
 };
 
 $(runThisPuppy);
