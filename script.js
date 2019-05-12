@@ -23,21 +23,25 @@
 function getWeather(citySelectionName) {
     fetch(`https://api.openweathermap.org/data/2.5/find?q=${citySelectionName}&units=imperial&appid=f45c5dca7b6df9490219f032a35434a1`)
     .then(response => response.json())
-    .then(responseJson => displayWeather(responseJson));
+    //.then(responseJson => displayWeather(responseJson));
+    .then(function(responseJson) {
+        let weatherDataList = responseJson;
+        displayWeather(weatherDataList);
+    });
 }
 
-function displayWeather(responseJson) {
-    console.log(responseJson);
+function displayWeather(weatherDataList) {
+    console.log(weatherDataList);
     $('.weather').removeClass('hidden');
     $('.weather').html(`
-        <h3>${responseJson.list[0].name}</h3>
-        <p>The temperature is ${responseJson.list[0].main.temp}F</p>
-        <p>The wind is blowing ${responseJson.list[0].wind.speed}mph</p>
-        <p>Currently: ${responseJson.list[0].weather[0].description}</p>
-    `);
+        <h3>${weatherDataList.list[0].name}</h3>
+        <p>The temperature is ${weatherDataList.list[0].main.temp}F</p>
+        <p>The wind is blowing ${weatherDataList.list[0].wind.speed}mph</p>
+        <p>Currently: ${weatherDataList.list[0].weather[0].description}</p>
+    `).hide().fadeIn(2000);
 }
   
-function displayTodaysTides(responseJson, citySelectionName, time) {
+function displayTodaysTides(responseJson, citySelectionName, time, weatherDataList) {
     console.log(responseJson);
     $('.container').html(`
         <div class="tideResponse">
@@ -61,12 +65,14 @@ function backToCitiesButton() {
     $('.container').on('click', '.citySelectButton', function(event) {
         $('.weather').addClass('hidden');
         $('.container').html(`
-            <div class="cities">
-                <div class="city seattle 9447130" id="seattle">Seattle</div>
-                <div class="city tacoma 9446484" id="tacoma">Tacoma</div>
-                <div class="city porttownsend 9444900" id="port townsend">Port Townsend</div>
-                <div class="city neahbay 9443090" id="forks">Neah Bay (Forks)</div>
-            </div>
+        <div class="citiesOne">
+        <div class="city seattle 9447130" id="seattle"></div>
+        <div class="city tacoma 9446484" id="tacoma"></div>
+    </div>
+    <div class="citiesTwo">
+        <div class="city porttownsend 9444900" id="port townsend"></div>
+        <div class="city neahbay 9443090" id="forks"></div>
+    </div>
         `);
     });
 }    
@@ -116,24 +122,29 @@ function displayUserDateTide(responseJson) {
 }
 
 function displayCities() {
+        $('.container').addClass('modifyContainer')
         $('.container').html(`
-            <h2>Where are you diving?</h2>
-            <div class="cities">
-                <div class="city seattle 9447130" id="seattle">Seattle</div>
-                <div class="city tacoma 9446484" id="tacoma">Tacoma</div>
-                <div class="city porttownsend 9444900" id="port townsend">Port Townsend</div>
-                <div class="city neahbay 9443090" id="forks">Neah Bay (Forks)</div>
+            <div class="cityCluster">        
+            <h2 class="whereDiving">Where are you diving?</h2>
+            <div class="citiesOne">
+                <div class="city seattle 9447130" id="seattle"></div>
+                <div class="city tacoma 9446484" id="tacoma"></div>
+            </div>
+            <div class="citiesTwo">
+                <div class="city porttownsend 9444900" id="port townsend"></div>
+                <div class="city neahbay 9443090" id="forks"></div>
+            </div>
             </div>
         `).hide().fadeIn(1000);
 }
 
 function loadDelayCities() {
-    setTimeout(displayCities, 2500);
+    setTimeout(displayCities, 2000);
 }
 
 function runThisPuppy() {
     todaySlackClick();
-    //loadDelayCities();
+    loadDelayCities();
 };
 
 $(runThisPuppy);
