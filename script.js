@@ -32,31 +32,37 @@ function getWeather(citySelectionName) {
 
 function displayWeather(weatherDataList) {
     console.log(weatherDataList);
-    $('.weather').removeClass('hidden');
-    $('.weather').html(`
+    //$('.weather').removeClass('hidden');
+    $('.testing').append(`
+    <div>
         <h3>${weatherDataList.list[0].name}</h3>
         <p>The temperature is ${weatherDataList.list[0].main.temp}F</p>
         <p>The wind is blowing ${weatherDataList.list[0].wind.speed}mph</p>
         <p>Currently: ${weatherDataList.list[0].weather[0].description}</p>
+    </div>    
     `).hide().fadeIn(2000);
 }
   
 function displayTodaysTides(responseJson, citySelectionName, time, weatherDataList) {
     console.log(responseJson);
-    $('.container').html(`
+    $('.cityCluster').html(`
+        <div class="testing"></div>
         <div class="tideResponse">
             <ul>
-                <li><p>The current time is ${time}</p></li>
-                <li><p>Next slack tide is at ${responseJson.predictions[0].t.split(' ')[1]}</p></li>
-                <li><p>The slack tide will be ${responseJson.predictions[0].type}</p></li>
-                <li><p>The water level will be ${responseJson.predictions[0].v}ft</p></li>
+                <li class="nextSlack"><p>Next slack tide is at</p>
+                <p class="timeDisplay">${responseJson.predictions[0].t.split(' ')[1]}</p></li>
+            </ul>
+            <ul>
+                <li class="tideDetails"><p>The current time is ${time}</p></li>
+                <li class="tideDetails"><p>The slack tide will be ${responseJson.predictions[0].type}</p></li>
+                <li class="tideDetails"><p>The water level will be ${responseJson.predictions[0].v}ft</p></li>
             </ul>
         </div>  
         <div>
             <button class="citySelectButton">Choose a different city</button>
             <button class="dateSelectButton">Diving another day?</button>
         </div>
-        `);
+        `).hide().fadeIn(500);
     backToCitiesButton();
     selectTideDate();
 };
@@ -135,7 +141,7 @@ function displayCities() {
                 <div class="city neahbay 9443090" id="forks"></div>
             </div>
             </div>
-        `).hide().fadeIn(1000);
+        `).hide().fadeIn(1500);
 }
 
 function loadDelayCities() {
