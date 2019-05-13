@@ -43,27 +43,29 @@ function displayWeather(weatherDataList) {
             <li class="liWeather"><img class="tempLogo" src="https://lh3.googleusercontent.com/YHkD4GCH6nIfjHPbFYMkTGYDViJfGY7Qeh4JxJJTKdqxAw3sq9UuOS61-1ojhMuiy2bXqKROlyo5X0azoLn4wyIYxqas-T2hCUY5e8xPl4EZR0lkrCwwGxK2htemRUd8qUiiFhPyBltxgaCYbJoj3uqeRtYGHPqprKg9RbgdcpBpG48Shppgngfy2skgkFxFCpIejrAPJOV9AL4OcZ2BGqnFMqnotkTYPPst1nWblt0iH8oTXN7fmGidvnIsQfyXjcGEtCsujykRuFK4DoYAas7H_PbYhs1UoodruNgGGAKyvJXHfk1rm-a-kGVX5MSIYQqC6qWtsjgAzf9APL-2wke9Cw55e2P2S6o0ttD3sPLyGHXkCHbtQ-AuZJzHs6Q8txGOA1h5HAquxCQ6xNq7iCoIwOyZJBKOM7DgrTnOlZmjzm_VpNEw-uHTZ661C2eRVkehGwpTO0iKZH0vUB-FUE4H_rkN3IhMycIms2YBAoxte2bm6KbvwQx2ltpj4NZw-PbAygfITHdmVysVPkRVO4Iw8aOlyvvRNyC0MexYX_IJsxvPZ2YBiuE7CpYiXuw8uO553NXXazgObHWEz9BcvQYc6ZZlmiX4gvO9RZVyWtbgGR4iNNOPL2UG-7URzSh6rzj75w_riW8itS9aQmJZNGbJvq3xbNK4A2Xaahc3GbH9x_Qm9ZP6HdAzyTRDnUAyIOM6kb1aaF8kOfAyPZPCKxbF=w576-h768-no" alt="temperature icon"> ${weatherDataList.list[0].wind.speed}mph</li>
         </ul>
     </div>    
-    `).hide().fadeIn(500);
+    `)//.hide().fadeIn(3000);
 }
   
 function displayTodaysTides(responseJson, citySelectionName, time, weatherDataList) {
     console.log(responseJson);
     $('.cityCluster').html(`
         <div class="tideResponse">
+
             <ul class="ulTides">
-                <li class="nextSlack"><p>Next slack tide is at</p>
+                <li class="nextSlack"><p>slack tide:</p>
                 <p class="timeDisplay">${responseJson.predictions[0].t.split(' ')[1]}</p></li>
-            </ul>
-            <ul class="ulTides">
-                <li class="tideDetails"><p>The current time is ${time}</p></li>
-                <li class="tideDetails"><p>The slack tide will be ${responseJson.predictions[0].type}</p></li>
-                <li class="tideDetails"><p>The water level will be ${responseJson.predictions[0].v}ft</p></li>
+             </ul>
+            
+             <ul class="ulTides">
+                <li class="tideDetails"><p>current time: </p><p class="tideDetailsBold">${time}</p></li>
+                <li class="tideDetails"><p>tide is: </p><p class="tideDetailsBold">${responseJson.predictions[0].type}</p></li>
+                <li class="tideDetails"><p>water level: </p><p class="tideDetailsBold">${responseJson.predictions[0].v}ft</p></li>
             </ul>
         </div>  
         <div>
             <button class="citySelectButton">Choose a different city</button>
         </div>
-        `).hide().fadeIn(500);
+        `).hide().fadeIn(3000);
     backToCitiesButton();
     selectTideDate();
 };
@@ -83,7 +85,7 @@ function backToCitiesButton() {
             <div class="city neahbay 9443090" id="forks"></div>
         </div>
         </div>
-        `).hide().fadeIn(1500);
+        `)//.hide().fadeIn(1500);
     });
 }    
 
