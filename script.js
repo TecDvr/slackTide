@@ -48,26 +48,29 @@ function displayWeather(weatherDataList) {
   
 function displayTodaysTides(responseJson, citySelectionName, time, weatherDataList) {
     console.log(responseJson);
+    let tideHeightFeet = responseJson.predictions[0].v.split('.')[0];
     $('.cityCluster').html(`
         <div class="tideResponse">
+
+            
+            
+             <ul class="ulTides">
+                <li class="tideDetails CurrentTime"><p class="tideDetailsPara">current time</p><p class="tideDetailsBold">${time}</p></li>
+                <li class="tideDetails"><p class="tideDetailsPara">tide is</p><p class="tideDetailsBold">${responseJson.predictions[0].type}</p></li>
+                <li class="tideDetails CurrentHeight"><p class="tideDetailsPara">water level</p><p class="tideDetailsBold">${tideHeightFeet}'</p></li>
+            </ul>
 
             <ul class="ulTides">
                 <li class="nextSlack"><p>slack tide:</p>
                 <p class="timeDisplay">${responseJson.predictions[0].t.split(' ')[1]}</p></li>
              </ul>
-            
-             <ul class="ulTides">
-                <li class="tideDetails"><p>current time: </p><p class="tideDetailsBold">${time}</p></li>
-                <li class="tideDetails"><p>tide is: </p><p class="tideDetailsBold">${responseJson.predictions[0].type}</p></li>
-                <li class="tideDetails"><p>water level: </p><p class="tideDetailsBold">${responseJson.predictions[0].v}ft</p></li>
-            </ul>
+
         </div>  
         <div>
-            <button class="citySelectButton">Choose a different city</button>
+            <button class="citySelectButton">different city?</button>
         </div>
         `).hide().fadeIn(3000);
     backToCitiesButton();
-    selectTideDate();
 };
 
 function backToCitiesButton() {
@@ -88,6 +91,36 @@ function backToCitiesButton() {
         `)//.hide().fadeIn(1500);
     });
 }    
+
+function displayCities() {
+        $('.container').addClass('modifyContainer')
+        $('.container').html(`
+            <div class="cityCluster">        
+            <h2 class="whereDiving">Where are you diving?</h2>
+            <div class="citiesOne">
+                <div class="city seattle 9447130" id="seattle"></div>
+                <div class="city tacoma 9446484" id="tacoma"></div>
+            </div>
+            <div class="citiesTwo">
+                <div class="city porttownsend 9444900" id="port townsend"></div>
+                <div class="city neahbay 9443090" id="forks"></div>
+            </div>
+            </div>
+        `).hide().fadeIn(1500);
+}
+
+function loadDelayCities() {
+    setTimeout(displayCities, 2000);
+}
+
+function runThisPuppy() {
+    todaySlackClick();
+    loadDelayCities();
+};
+
+$(runThisPuppy);
+
+//<button class="dateSelectButton">Diving another day?</button>
 
 /*function selectTideDate() {
     $('.container').on('click', '.dateSelectButton', function(event) {
@@ -132,33 +165,3 @@ function backToCitiesButton() {
         `);
     }); 
 }*/
-
-function displayCities() {
-        $('.container').addClass('modifyContainer')
-        $('.container').html(`
-            <div class="cityCluster">        
-            <h2 class="whereDiving">Where are you diving?</h2>
-            <div class="citiesOne">
-                <div class="city seattle 9447130" id="seattle"></div>
-                <div class="city tacoma 9446484" id="tacoma"></div>
-            </div>
-            <div class="citiesTwo">
-                <div class="city porttownsend 9444900" id="port townsend"></div>
-                <div class="city neahbay 9443090" id="forks"></div>
-            </div>
-            </div>
-        `).hide().fadeIn(1500);
-}
-
-function loadDelayCities() {
-    setTimeout(displayCities, 2000);
-}
-
-function runThisPuppy() {
-    todaySlackClick();
-    loadDelayCities();
-};
-
-$(runThisPuppy);
-
-//<button class="dateSelectButton">Diving another day?</button>
