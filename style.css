@@ -41,21 +41,10 @@ button {
     font-family: 'Fira Sans Extra Condensed', sans-serif;    font-size: 20px;
 }
 
-#submitButton {
-    border: 1px solid white;
-    cursor: pointer;
-}
-
 .hidden {
     display: none;
 }
-
-
-
-
-
-
-
+/*opening page*/
 header {
     padding-top: 40%;
     text-align: center;
@@ -71,19 +60,7 @@ header {
     font-size: 20px;
     font-weight: 700;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*select city display*/
 .cityCluster {
     padding-top: 2%;
     text-align: center;
@@ -140,13 +117,7 @@ header {
     background-repeat: no-repeat;
     background-position: center
 }
-
-
-
-
-
-
-
+/*tide information display*/
 .tideResponse {
     color: white;
     padding-top: 1%;
@@ -159,6 +130,7 @@ header {
     height: 240px;
     width: 240px;
     font-size: 30px;
+    background-color: rgb(0, 0, 0, 0.6);
 }
 
 .tideDetails {
@@ -167,6 +139,7 @@ header {
     border: 1px solid white;
     border-radius: 10px;
     width: 14vh;
+    background-color: rgb(0, 0, 0, 0.6);
 }
 
 .timeDisplay {
@@ -191,13 +164,7 @@ li {
 .tideDetailsBold {
     font-size: 25px;
 }
-
-
-
-
-
-
-
+/*weather display*/
 .weatherDisplay {
     background-color: rgba(41, 51, 82, 0.9);
     color: white;
@@ -228,16 +195,6 @@ li {
     padding-bottom: 5px;
     font-size: 30px;
 }
-
-
-
-
-form {
-    background-color: grey;
-    height: 40px;
-    padding: 10px;
-}
-
 
 /*tablet*/
     @media screen and (min-width: 600px) and (max-width : 1024px) {
@@ -327,6 +284,7 @@ form {
             height: 350px;
             width: 350px;
             font-size: 45px;
+            background-color: rgb(0, 0, 0, 0.6);
         }
 
         .tideDetails {
@@ -335,6 +293,7 @@ form {
             border: 1px solid white;
             border-radius: 10px;
             width: 14vh;
+            background-color: rgb(0, 0, 0, 0.6);
         }
 
         .timeDisplay {
@@ -410,6 +369,7 @@ form {
             font-size: 50px;
         }
     }
+
 /*full screen*/
     @media screen and (min-width: 1025px) {
         /*opening page*/
@@ -508,6 +468,7 @@ form {
                 height: 300px;
                 width: 300px;
                 font-size: 40px;
+                background-color: rgb(0, 0, 0, 0.6);
             }
         
             .tideDetails {
@@ -516,7 +477,8 @@ form {
                 border: 1px solid white;
                 border-radius: 10px;
                 width: 30vh;
-                height: 11vh;
+                height: 12vh;
+                background-color: rgb(0, 0, 0, 0.6);
             }
 
             .CurrentHeight {
@@ -560,7 +522,7 @@ form {
             button {
                 background-color: #787134;
                 color: white;
-                height: 90px;
+                height: 60px;
                 width: 200px;
                 border: none;
                 border-radius: 10px;
@@ -570,7 +532,6 @@ form {
             }
         /*weather display & logo*/
             .weatherDisplay {
-        
                 background-color: rgba(41, 51, 82, 0.9);
                 color: white;
                 padding: 10px;

@@ -9,9 +9,7 @@
     const date = today.getFullYear()+''+(month < 10 ? ('0' + month) : month)+''+(day < 10 ? ('0' + day) : day);
     const time = (hour < 10 ? ('0' + hour): hour) + ":" + (minute < 10 ? ('0' + minute) : minute);
     $('body').on('click', '.city', function(event) {
-        //$("div").animate({left: '10px'});
         const citySelection = $(this).attr('class').split(' ')[2];
-        //const citySelectionName = $(this).attr('class').split(' ')[1];
         const citySelectionName = $(this).attr('id');
         getWeather(citySelectionName);
         fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
@@ -43,7 +41,7 @@ function displayWeather(weatherDataList) {
             <li class="liWeather"><img class="tempLogo" src="https://lh3.googleusercontent.com/YHkD4GCH6nIfjHPbFYMkTGYDViJfGY7Qeh4JxJJTKdqxAw3sq9UuOS61-1ojhMuiy2bXqKROlyo5X0azoLn4wyIYxqas-T2hCUY5e8xPl4EZR0lkrCwwGxK2htemRUd8qUiiFhPyBltxgaCYbJoj3uqeRtYGHPqprKg9RbgdcpBpG48Shppgngfy2skgkFxFCpIejrAPJOV9AL4OcZ2BGqnFMqnotkTYPPst1nWblt0iH8oTXN7fmGidvnIsQfyXjcGEtCsujykRuFK4DoYAas7H_PbYhs1UoodruNgGGAKyvJXHfk1rm-a-kGVX5MSIYQqC6qWtsjgAzf9APL-2wke9Cw55e2P2S6o0ttD3sPLyGHXkCHbtQ-AuZJzHs6Q8txGOA1h5HAquxCQ6xNq7iCoIwOyZJBKOM7DgrTnOlZmjzm_VpNEw-uHTZ661C2eRVkehGwpTO0iKZH0vUB-FUE4H_rkN3IhMycIms2YBAoxte2bm6KbvwQx2ltpj4NZw-PbAygfITHdmVysVPkRVO4Iw8aOlyvvRNyC0MexYX_IJsxvPZ2YBiuE7CpYiXuw8uO553NXXazgObHWEz9BcvQYc6ZZlmiX4gvO9RZVyWtbgGR4iNNOPL2UG-7URzSh6rzj75w_riW8itS9aQmJZNGbJvq3xbNK4A2Xaahc3GbH9x_Qm9ZP6HdAzyTRDnUAyIOM6kb1aaF8kOfAyPZPCKxbF=w576-h768-no" alt="temperature icon"> ${weatherDataList.list[0].wind.speed}mph</li>
         </ul>
     </div>    
-    `)//.hide().fadeIn(3000);
+    `);
 }
   
 function displayTodaysTides(responseJson, citySelectionName, time, weatherDataList) {
@@ -51,20 +49,15 @@ function displayTodaysTides(responseJson, citySelectionName, time, weatherDataLi
     let tideHeightFeet = responseJson.predictions[0].v.split('.')[0];
     $('.cityCluster').html(`
         <div class="tideResponse">
-
-            
-            
-             <ul class="ulTides">
+            <ul class="ulTides">
                 <li class="tideDetails CurrentTime"><p class="tideDetailsPara">current time</p><p class="tideDetailsBold">${time}</p></li>
                 <li class="tideDetails"><p class="tideDetailsPara">tide is</p><p class="tideDetailsBold">${responseJson.predictions[0].type}</p></li>
                 <li class="tideDetails CurrentHeight"><p class="tideDetailsPara">water level</p><p class="tideDetailsBold">${tideHeightFeet}'</p></li>
             </ul>
-
             <ul class="ulTides">
                 <li class="nextSlack"><p>slack tide:</p>
                 <p class="timeDisplay">${responseJson.predictions[0].t.split(' ')[1]}</p></li>
              </ul>
-
         </div>  
         <div>
             <button class="citySelectButton">different city?</button>
@@ -119,49 +112,3 @@ function runThisPuppy() {
 };
 
 $(runThisPuppy);
-
-//<button class="dateSelectButton">Diving another day?</button>
-
-/*function selectTideDate() {
-    $('.container').on('click', '.dateSelectButton', function(event) {
-        $('.weather').addClass('hidden');
-        $('.container').html(`
-            <form>
-                <label for="dateInput">When are you diving?</label>
-                <input type="text" name="dateInput" id="dateInput" placeholder="ex. YYYYMMDD" required>
-                <input type="button" id="submitDateButton" value="go dive">
-            </form>
-            <div class="userDateTideContainer"></div>
-            <button class="citySelectButton">Choose a different city</button>
-        `);
-        userDateSubmit();
-    });
-}*/
-
-/*function userDateSubmit() {
-    $('.container').on('click', '#submitDateButton', function(event) {
-        let userDate = $('#dateInput').val();
-        getDateSpecificTide(userDate);
-    });
-}*/
-
-/*function getDateSpecificTide(userDate) {
-    fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${userDate}&range=24&station=9447130&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
-    .then(response => response.json())
-    .then(responseJson => displayUserDateTide(responseJson));
-}*/
-
-/*function displayUserDateTide(responseJson) {
-    console.log(responseJson);
-    $('.userDateTideContainer').empty();
-    responseJson.predictions.forEach(function(item, i) {
-        $('.userDateTideContainer').append(`
-            <div>
-                <ul>
-                  <li>${responseJson.predictions[i].type}</li>
-                  <li>${responseJson.predictions[i].t}</li>
-                </ul>
-            </div>  
-        `);
-    }); 
-}*/
