@@ -1,14 +1,17 @@
 'use strict';
 
 function todaySlackClick() {
-    const today = new Date();
+    //converting JS time to needed time format
+    const today = new Date(); 
     let month = today.getMonth() + 1;
     let day = today.getDate();
     let hour = today.getHours();
     let minute = today.getMinutes();
     const date = today.getFullYear()+''+(month < 10 ? ('0' + month) : month)+''+(day < 10 ? ('0' + day) : day);
     const time = (hour < 10 ? ('0' + hour): hour) + ":" + (minute < 10 ? ('0' + minute) : minute);
+
     $('body').on('click', '.city', function(event) {
+        //pulls correct name for tide and weather search from city div
         const citySelection = $(this).attr('class').split(' ')[2];
         const citySelectionName = $(this).attr('id');
         $(this).animate({opacity: '0'});
@@ -31,6 +34,7 @@ function todaySlackClick() {
                 getData();
             }    
         });
+
         function getData() {
             fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
             .then(response => response.json())
