@@ -1,6 +1,6 @@
 'use strict';
 
-  function todaySlackClick() {
+function todaySlackClick() {
     const today = new Date();
     let month = today.getMonth() + 1;
     let day = today.getDate();
@@ -11,20 +11,41 @@
     $('body').on('click', '.city', function(event) {
         const citySelection = $(this).attr('class').split(' ')[2];
         const citySelectionName = $(this).attr('id');
-        getWeather(citySelectionName);
-        fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
-        .then(response => response.json())
-        .then(responseJson => displayTodaysTides(responseJson, citySelectionName, time));
-    });
-}
-
-function getWeather(citySelectionName) {
-    fetch(`https://api.openweathermap.org/data/2.5/find?q=${citySelectionName}&units=imperial&appid=f45c5dca7b6df9490219f032a35434a1`)
-    .then(response => response.json())
-    //.then(responseJson => displayWeather(responseJson));
-    .then(function(responseJson) {
-        let weatherDataList = responseJson;
-        displayWeather(weatherDataList);
+        $(this).animate({opacity: '0'});
+        $('.city').animate({
+            opacity: '0',
+            height: '+=900px'
+          }, {
+            duration: 800,
+            easing: 'swing',
+            complete: function(){
+                getData();
+            }    
+        });
+        $('.whereDiving').animate({
+            opacity: '0',
+          }, {
+            duration: 800,
+            easing: 'swing',
+            complete: function(){
+                getData();
+            }    
+        });
+        function getData() {
+            fetch(`https://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${date} ${time}&range=24&station=${citySelection}&product=predictions&units=english&time_zone=lst_ldt&format=json&datum=mllw&interval=hilo`)
+            .then(response => response.json())
+            .then(tideDataList => {
+                fetch(`https://api.openweathermap.org/data/2.5/find?q=${citySelectionName}&units=imperial&appid=f45c5dca7b6df9490219f032a35434a1`)
+                .then(response => response.json())
+                .then(weatherDataList => {
+                    displayWeather(weatherDataList);
+                    displayTodaysTides(tideDataList, citySelectionName, time, weatherDataList);
+                });
+            })
+            .catch(error => {
+                alert('Please check your internet connection!');
+            });
+        };
     });
 }
 
@@ -44,25 +65,25 @@ function displayWeather(weatherDataList) {
     `);
 }
   
-function displayTodaysTides(responseJson, citySelectionName, time, weatherDataList) {
-    console.log(responseJson);
-    let tideHeightFeet = responseJson.predictions[0].v.split('.')[0];
+function displayTodaysTides(tideDataList, citySelectionName, time, weatherDataList) {
+    console.log(tideDataList);
+    let tideHeightFeet = tideDataList.predictions[0].v.split('.')[0];
     $('.cityCluster').html(`
         <div class="tideResponse">
             <ul class="ulTides">
                 <li class="tideDetails CurrentTime"><p class="tideDetailsPara">current time</p><p class="tideDetailsBold">${time}</p></li>
-                <li class="tideDetails"><p class="tideDetailsPara">tide is</p><p class="tideDetailsBold">${responseJson.predictions[0].type}</p></li>
+                <li class="tideDetails"><p class="tideDetailsPara">tide is</p><p class="tideDetailsBold">${tideDataList.predictions[0].type}</p></li>
                 <li class="tideDetails CurrentHeight"><p class="tideDetailsPara">water level</p><p class="tideDetailsBold">${tideHeightFeet}'</p></li>
             </ul>
             <ul class="ulTides">
                 <li class="nextSlack"><p>slack tide:</p>
-                <p class="timeDisplay">${responseJson.predictions[0].t.split(' ')[1]}</p></li>
+                <p class="timeDisplay">${tideDataList.predictions[0].t.split(' ')[1]}</p></li>
              </ul>
         </div>  
         <div>
             <button class="citySelectButton">different city?</button>
         </div>
-        `).hide().fadeIn(3000);
+        `);
     backToCitiesButton();
 };
 
@@ -78,10 +99,10 @@ function backToCitiesButton() {
         </div>
         <div class="citiesTwo">
             <div class="city porttownsend 9444900" id="port townsend"></div>
-            <div class="city neahbay 9443090" id="forks"></div>
+            <div class="city neahbay 9444090" id="port angeles"></div>
         </div>
         </div>
-        `)//.hide().fadeIn(1500);
+        `);
     });
 }    
 
@@ -96,7 +117,7 @@ function displayCities() {
             </div>
             <div class="citiesTwo">
                 <div class="city porttownsend 9444900" id="port townsend"></div>
-                <div class="city neahbay 9443090" id="forks"></div>
+                <div class="city neahbay 9444090" id="port angeles"></div>
             </div>
             </div>
         `).hide().fadeIn(1500);
